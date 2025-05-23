@@ -18,6 +18,7 @@ model.fc = torch.nn.Linear(512, 44)
 
 ckpt = torch.load("./01_MIA.pt", map_location="cpu")
 
+
 model.load_state_dict(ckpt)
 
 #### DATASETS
@@ -64,5 +65,6 @@ df = pd.DataFrame(
     }
 )
 df.to_csv("test.csv", index=None)
+
 response = requests.post("http://34.122.51.94:9090/mia", files={"file": open("test.csv", "rb")}, headers={"token": "TOKEN"})
 print(response.json())
